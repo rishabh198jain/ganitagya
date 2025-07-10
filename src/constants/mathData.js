@@ -1,11 +1,27 @@
 // Math topics data for the MathSections component
 export const mathTopics = [
   {
+    id: "arithmetic",
+    title: "Arithmetic",
+    description:
+      "Master the fundamental operations of mathematics including addition, subtraction, multiplication, and division with whole numbers, fractions, and decimals.",
+    icon: "🔢",
+    formula: "a + b = c",
+    features: [
+      "Basic Operations",
+      "Fractions & Decimals",
+      "Percentages",
+      "Number Properties",
+    ],
+    difficulty: "Beginner",
+    estimatedTime: "1-2 weeks",
+  },
+  {
     id: "algebra",
     title: "Algebra",
     description:
       "Master equations, functions, and algebraic structures with comprehensive examples and step-by-step solutions.",
-    icon: "📐",
+    icon: "🔢",
     formula: "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
     features: [
       "Linear & Quadratic Equations",
@@ -21,45 +37,125 @@ export const mathTopics = [
     title: "Geometry",
     description:
       "Explore shapes, angles, and spatial relationships from basic concepts to advanced theorems.",
-    icon: "📏",
+    icon: "📐",
     formula: "a^2 + b^2 = c^2",
     features: [
       "Angles & Triangles",
       "Circles & Polygons",
       "Solid Geometry",
-      "Trigonometric Ratios",
+      "Coordinate Geometry",
     ],
     difficulty: "Beginner to Advanced",
     estimatedTime: "3-5 weeks",
+  },
+  {
+    id: "trigonometry",
+    title: "Trigonometry",
+    description:
+      "Study the relationships between angles and sides in triangles, with applications in physics, engineering, and navigation.",
+    icon: "📏",
+    formula: "\\sin^2\\theta + \\cos^2\\theta = 1",
+    features: [
+      "Trigonometric Ratios",
+      "Identities & Equations",
+      "Inverse Functions",
+      "Applications",
+    ],
+    difficulty: "Intermediate",
+    estimatedTime: "3-4 weeks",
+  },
+  {
+    id: "mensuration",
+    title: "Mensuration",
+    description:
+      "Learn to calculate areas, volumes, and surface areas of various geometric shapes and solids.",
+    icon: "🧊",
+    formula: "V = \\frac{4}{3}\\pi r^3",
+    features: [
+      "Area Calculations",
+      "Volume & Surface Area",
+      "2D & 3D Shapes",
+      "Real-world Applications",
+    ],
+    difficulty: "Beginner to Intermediate",
+    estimatedTime: "2-3 weeks",
+  },
+  {
+    id: "statistics",
+    title: "Statistics",
+    description:
+      "Analyze data and understand statistical measures with practical examples and real-world applications.",
+    icon: "📉",
+    formula: "\\sigma = \\sqrt{\\frac{\\sum(x_i - \\mu)^2}{N}}",
+    features: [
+      "Central Tendency",
+      "Dispersion Measures",
+      "Data Representation",
+      "Statistical Analysis",
+    ],
+    difficulty: "Beginner to Intermediate",
+    estimatedTime: "3-4 weeks",
   },
   {
     id: "calculus",
     title: "Calculus",
     description:
       "Dive into limits, derivatives, and integrals with comprehensive coverage of differential and integral calculus.",
-    icon: "∫",
+    icon: "📈",
     formula: "\\frac{d}{dx}(x^n) = nx^{n-1}",
     features: [
       "Limits & Continuity",
       "Derivatives & Rules",
       "Integration Techniques",
-      "Definite Integrals",
+      "Applications",
     ],
     difficulty: "Intermediate to Advanced",
     estimatedTime: "4-6 weeks",
   },
   {
-    id: "statistics",
-    title: "Statistics",
+    id: "number-theory",
+    title: "Number Theory",
     description:
-      "Analyze data and understand probability with practical examples and real-world applications.",
-    icon: "📊",
-    formula: "\\sigma = \\sqrt{\\frac{\\sum(x_i - \\mu)^2}{N}}",
+      "Explore the fascinating properties of integers, prime numbers, and mathematical patterns in number systems.",
+    icon: "🧠",
+    formula: "p \\equiv 1 \\pmod{4}",
     features: [
-      "Central Tendency",
-      "Dispersion Measures",
-      "Probability Theory",
+      "Prime Numbers",
+      "Divisibility Rules",
+      "Modular Arithmetic",
+      "Number Patterns",
+    ],
+    difficulty: "Intermediate to Advanced",
+    estimatedTime: "4-5 weeks",
+  },
+  {
+    id: "logical-reasoning",
+    title: "Logical Reasoning",
+    description:
+      "Develop critical thinking skills through mathematical logic, proofs, and systematic problem-solving techniques.",
+    icon: "🔍",
+    formula: "P \\rightarrow Q",
+    features: [
+      "Logical Statements",
+      "Proof Techniques",
+      "Set Theory",
+      "Problem Solving",
+    ],
+    difficulty: "Intermediate",
+    estimatedTime: "3-4 weeks",
+  },
+  {
+    id: "probability",
+    title: "Probability",
+    description:
+      "Understand chance, randomness, and uncertainty through mathematical probability theory and practical applications.",
+    icon: "🎲",
+    formula: "P(A \\cap B) = P(A) \\cdot P(B|A)",
+    features: [
+      "Basic Probability",
+      "Conditional Probability",
       "Distributions",
+      "Real-world Applications",
     ],
     difficulty: "Beginner to Intermediate",
     estimatedTime: "3-4 weeks",

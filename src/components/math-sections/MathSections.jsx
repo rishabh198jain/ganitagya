@@ -12,8 +12,8 @@ const MathSections = () => {
 
   // Constants for carousel logic
   const CARDS_PER_VIEW = isMobile ? 1 : 3; // Mobile: 1 card, Desktop: 3 cards
-  const TOTAL_CARDS = mathTopics.length; // 4 cards total
-  const MAX_SLIDE = Math.max(0, TOTAL_CARDS - CARDS_PER_VIEW); // Desktop: 1 (2 positions), Mobile: 3 (4 positions)
+  const TOTAL_CARDS = mathTopics.length; // 10 cards total
+  const MAX_SLIDE = Math.max(0, TOTAL_CARDS - CARDS_PER_VIEW); // Desktop: 7 positions, Mobile: 9 positions
 
   useEffect(() => {
     // Trigger MathJax processing after component mounts
@@ -65,8 +65,8 @@ const MathSections = () => {
     const totalPositions = MAX_SLIDE + 1; // Number of possible slide positions
     const dotsPerGroup = 3;
 
-    // Desktop: 2 positions (0: shows cards 1-3, 1: shows cards 2-4) = 2 dots
-    // Mobile: 4 positions (0: card 1, 1: card 2, 2: card 3, 3: card 4) = 4 dots
+    // Desktop: 8 positions (0: cards 1-3, 1: cards 2-4, ..., 7: cards 8-10) = 8 dots in 3 groups
+    // Mobile: 10 positions (0: card 1, 1: card 2, ..., 9: card 10) = 10 dots in 4 groups
     for (let i = 0; i < totalPositions; i += dotsPerGroup) {
       const groupDots = [];
       for (let j = i; j < Math.min(i + dotsPerGroup, totalPositions); j++) {
