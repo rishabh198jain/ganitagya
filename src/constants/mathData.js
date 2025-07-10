@@ -242,9 +242,9 @@ export const heroButtons = [
 // Math formulas for hero section display
 export const mathFormulas = [
   {
-    id: "quadratic",
-    formula: "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
-    name: "Quadratic Formula",
+    id: "einstein",
+    formula: "E = mc^2",
+    name: "Einstein's Mass-Energy Equivalence",
   },
   {
     id: "pythagorean",
@@ -252,19 +252,14 @@ export const mathFormulas = [
     name: "Pythagorean Theorem",
   },
   {
-    id: "area-circle",
-    formula: "A = \\pi r^2",
-    name: "Area of Circle",
-  },
-  {
     id: "derivative",
     formula: "\\frac{d}{dx}(x^n) = nx^{n-1}",
-    name: "Power Rule",
+    name: "Power Rule for Derivatives",
   },
   {
     id: "integral",
-    formula: "\\int x^n dx = \\frac{x^{n+1}}{n+1} + C",
-    name: "Power Rule Integration",
+    formula: "\\int x dx = \\frac{x^2}{2} + C",
+    name: "Basic Integration",
   },
 ];
 
