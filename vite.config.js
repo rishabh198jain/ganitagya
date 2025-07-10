@@ -5,6 +5,7 @@ import path from "path";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: process.env.NODE_ENV === "production" ? "/ganitagya/" : "/",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -14,6 +15,18 @@ export default defineConfig({
       "@/constants": path.resolve(__dirname, "./src/constants"),
       "@/utils": path.resolve(__dirname, "./src/utils"),
       "@/hooks": path.resolve(__dirname, "./src/hooks"),
+    },
+  },
+  build: {
+    outDir: "dist",
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+          router: ["react-router-dom"],
+        },
+      },
     },
   },
 });
