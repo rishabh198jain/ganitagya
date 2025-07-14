@@ -13,7 +13,7 @@ const MathSections = () => {
   // Constants for carousel logic
   const CARDS_PER_VIEW = isMobile ? 1 : 3; // Mobile: 1 card, Desktop: 3 cards
   const TOTAL_CARDS = mathTopics.length; // 10 cards total
-  const MAX_SLIDE = Math.max(0, TOTAL_CARDS - CARDS_PER_VIEW); // Desktop: 7 positions, Mobile: 9 positions
+  const MAX_SLIDE = Math.max(0, TOTAL_CARDS - CARDS_PER_VIEW); // Desktop: 7 (shows cards 8,9,10), Mobile: 9 (shows card 10)
 
   useEffect(() => {
     // Trigger MathJax processing after component mounts
@@ -51,17 +51,27 @@ const MathSections = () => {
     }
   };
 
-  // Carousel navigation functions
+  // Carousel navigation functions with proper boundary checking
   const nextSlide = () => {
-    setCurrentSlide((prev) => Math.min(prev + 1, MAX_SLIDE));
+    setCurrentSlide((prev) => {
+      const nextIndex = prev + 1;
+      // Ensure we don't go beyond the maximum allowed slide
+      return Math.min(nextIndex, MAX_SLIDE);
+    });
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => Math.max(prev - 1, 0));
+    setCurrentSlide((prev) => {
+      const prevIndex = prev - 1;
+      // Ensure we don't go below 0
+      return Math.max(prevIndex, 0);
+    });
   };
 
   const goToSlide = (index) => {
-    setCurrentSlide(Math.min(index, MAX_SLIDE));
+    // Clamp the index between 0 and MAX_SLIDE
+    const clampedIndex = Math.max(0, Math.min(index, MAX_SLIDE));
+    setCurrentSlide(clampedIndex);
   };
 
   // Helper function to create exactly 3 dot groups as requested
@@ -82,6 +92,7 @@ const MathSections = () => {
       return 2;
     } else {
       // Desktop: Dot 1 (0-2), Dot 2 (3-5), Dot 3 (6-7)
+      // For 10 cards: slide 0-2 = dot 0, slide 3-5 = dot 1, slide 6-7 = dot 2
       if (currentSlide <= 2) return 0;
       if (currentSlide <= 5) return 1;
       return 2;
@@ -123,7 +134,7 @@ const MathSections = () => {
           <div className="carousel-viewport">
             <div className={`topics-grid carousel-mode`}
                  style={{
-                   transform: `translateX(-${currentSlide * (isMobile ? 100 : 33.333)}%)`,
+                   transform: `translateX(-${currentSlide * (isMobile ? 100 : (100 / CARDS_PER_VIEW))}%)`,
                  }}>
               {mathTopics.map((topic, index) => (
                 <React.Fragment key={topic.id}>
