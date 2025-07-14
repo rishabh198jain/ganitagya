@@ -1,7 +1,9 @@
 # CODEOWNERS file for Ganitagya repository
 # This file defines who owns and must review changes to specific parts of the codebase
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
 # Global ownership - Rishabh Jain owns everything by default
+# This ensures all PRs require review from @rishabh198jain
 * @rishabh198jain
 
 # Critical files require explicit approval

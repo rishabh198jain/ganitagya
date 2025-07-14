@@ -98,6 +98,7 @@ const PricingPlans = () => {
 
       navigate('/dashboard')
     } catch (error) {
+      console.error('Payment error:', error);
       alert('Payment failed. Please try again.')
     } finally {
       setLoading(false)

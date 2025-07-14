@@ -2,7 +2,7 @@ import React from 'react';
 import { FaTimes, FaDownload } from 'react-icons/fa';
 import './DocumentPopup.css';
 
-const DocumentPopup = ({ isOpen, onClose, documentType, title, content }) => {
+const DocumentPopup = ({ isOpen, onClose, title, content }) => {
   if (!isOpen) return null;
 
   const handleDownload = () => {

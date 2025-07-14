@@ -22,6 +22,7 @@ const ContactUs = () => {
       console.log('Form submitted:', formData)
       setSubmitStatus('success')
     } catch (err) {
+      console.error('Contact form error:', err);
       setError('Failed to send message. Please try again.')
       setSubmitStatus('error')
     } finally {

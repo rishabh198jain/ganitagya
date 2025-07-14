@@ -4,6 +4,11 @@ on:
   pull_request:
     types: [opened, reopened, ready_for_review]
 
+permissions:
+  pull-requests: write
+  contents: read
+  issues: write
+
 jobs:
   auto-assign:
     runs-on: ubuntu-latest
@@ -13,19 +18,37 @@ jobs:
       - name: Auto assign reviewer
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // Auto-assign rishabh198jain as reviewer
+            const prNumber = context.issue.number;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            console.log(`Processing PR #${prNumber} in ${owner}/${repo}`);
+
+            // Get PR details first
+            const { data: pr } = await github.rest.pulls.get({
+              owner,
+              repo,
+              pull_number: prNumber
+            });
+
+            console.log(`PR Author: ${pr.user.login}`);
+            console.log(`Target Reviewer: rishabh198jain`);
+
+            // Always try to assign reviewer, even if it's self-assignment
             try {
-              await github.rest.pulls.requestReviewers({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: context.issue.number,
+              const result = await github.rest.pulls.requestReviewers({
+                owner,
+                repo,
+                pull_number: prNumber,
                 reviewers: ['rishabh198jain']
               });
-              console.log('Successfully assigned reviewer: rishabh198jain');
+              console.log('✅ Successfully assigned reviewer: rishabh198jain');
+              console.log('Response:', JSON.stringify(result.data, null, 2));
             } catch (error) {
-              console.log('Error assigning reviewer:', error.message);
-              // Continue execution even if reviewer assignment fails
+              console.log('❌ Error assigning reviewer:', error.message);
+              console.log('Error details:', JSON.stringify(error, null, 2));
             }
 
             // Add appropriate labels based on PR content
