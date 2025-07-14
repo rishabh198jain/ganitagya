@@ -33,7 +33,12 @@ const MathSections = () => {
   }, []);
 
   const handleLearnMore = (topicId) => {
-    if (topicId === 'algebra' || topicId === 'geometry' || topicId === 'calculus' || topicId === 'statistics') {
+    const availableTopics = [
+      'arithmetic', 'algebra', 'geometry', 'trigonometry', 'mensuration',
+      'statistics', 'calculus', 'number-theory', 'logical-reasoning', 'probability'
+    ];
+
+    if (availableTopics.includes(topicId)) {
       navigate(`/${topicId}`);
       // Ensure page scrolls to top after navigation
       setTimeout(() => {
@@ -59,26 +64,31 @@ const MathSections = () => {
     setCurrentSlide(Math.min(index, MAX_SLIDE));
   };
 
-  // Helper function to create dot groups based on carousel positions
+  // Helper function to create exactly 3 dot groups as requested
   const createDotGroups = () => {
-    const groups = [];
-    const totalPositions = MAX_SLIDE + 1; // Number of possible slide positions
-    const dotsPerGroup = 3;
-
-    // Desktop: 8 positions (0: cards 1-3, 1: cards 2-4, ..., 7: cards 8-10) = 8 dots in 3 groups
-    // Mobile: 10 positions (0: card 1, 1: card 2, ..., 9: card 10) = 10 dots in 4 groups
-    for (let i = 0; i < totalPositions; i += dotsPerGroup) {
-      const groupDots = [];
-      for (let j = i; j < Math.min(i + dotsPerGroup, totalPositions); j++) {
-        groupDots.push(j);
-      }
-      groups.push(groupDots);
-    }
-    return groups;
+    // Always show exactly 3 dots regardless of total cards
+    // Dot 1: Cards 1-3, Dot 2: Cards 4-6, Dot 3: Cards 7-10
+    return [0, 1, 2]; // Just return 3 dots
   };
 
   const dotGroups = createDotGroups();
-  const activeGroupIndex = Math.floor(currentSlide / 3);
+
+  // Calculate which dot should be active based on current slide
+  const getActiveDotIndex = () => {
+    if (isMobile) {
+      // Mobile: Dot 1 (0-2), Dot 2 (3-5), Dot 3 (6-9)
+      if (currentSlide <= 2) return 0;
+      if (currentSlide <= 5) return 1;
+      return 2;
+    } else {
+      // Desktop: Dot 1 (0-2), Dot 2 (3-5), Dot 3 (6-7)
+      if (currentSlide <= 2) return 0;
+      if (currentSlide <= 5) return 1;
+      return 2;
+    }
+  };
+
+  const activeDotIndex = getActiveDotIndex();
 
   return (
     <section className="math-sections">
@@ -176,19 +186,12 @@ const MathSections = () => {
             )}
 
             <div className="carousel-indicators">
-              {dotGroups.map((group, groupIndex) => (
-                <div key={groupIndex} className="carousel-dot-group">
-                  {group.map((dotIndex) => (
-                    <div
-                      key={dotIndex}
-                      className={`carousel-dot ${
-                        dotIndex === currentSlide ? 'active' :
-                        groupIndex === activeGroupIndex ? 'in-active-group' : ''
-                      }`}
-                      onClick={() => goToSlide(dotIndex)}
-                    />
-                  ))}
-                </div>
+              {dotGroups.map((_, groupIndex) => (
+                <div
+                  key={groupIndex}
+                  className={`carousel-dot ${groupIndex === activeDotIndex ? 'active' : ''}`}
+                  onClick={() => goToSlide(groupIndex * 3)}
+                />
               ))}
             </div>
           </div>

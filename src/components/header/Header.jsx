@@ -62,10 +62,7 @@ const Header = () => {
                 Contact Us
               </Link>
             </li>
-            <li><a href="#algebra">Algebra</a></li>
-            <li><a href="#geometry">Geometry</a></li>
-            <li><a href="#calculus">Calculus</a></li>
-            <li><a href="#statistics">Statistics</a></li>
+
           </ul>
         </nav>
 

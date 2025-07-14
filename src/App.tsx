@@ -13,10 +13,16 @@ import StudentDashboard from './pages/dashboard/StudentDashboard'
 import EducatorDashboard from './pages/dashboard/EducatorDashboard'
 import AdminDashboard from './pages/dashboard/AdminDashboard'
 import PricingPlans from './components/pricing-plans/PricingPlans'
+import ArithmeticPage from './pages/ArithmeticPage'
 import AlgebraPage from './pages/AlgebraPage'
 import GeometryPage from './pages/GeometryPage'
-import CalculusPage from './pages/CalculusPage'
+import TrigonometryPage from './pages/TrigonometryPage'
+import MensurationPage from './pages/MensurationPage'
 import StatisticsPage from './pages/StatisticsPage'
+import CalculusPage from './pages/CalculusPage'
+import NumberTheoryPage from './pages/NumberTheoryPage'
+import LogicalReasoningPage from './pages/LogicalReasoningPage'
+import ProbabilityPage from './pages/ProbabilityPage'
 import './App.css'
 
 function App(): JSX.Element {
@@ -36,10 +42,16 @@ function App(): JSX.Element {
               <Route path="/signup" element={<AuthForm />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/pricing" element={<PricingPlans />} />
+              <Route path="/arithmetic" element={<ArithmeticPage />} />
               <Route path="/algebra" element={<AlgebraPage />} />
               <Route path="/geometry" element={<GeometryPage />} />
-              <Route path="/calculus" element={<CalculusPage />} />
+              <Route path="/trigonometry" element={<TrigonometryPage />} />
+              <Route path="/mensuration" element={<MensurationPage />} />
               <Route path="/statistics" element={<StatisticsPage />} />
+              <Route path="/calculus" element={<CalculusPage />} />
+              <Route path="/number-theory" element={<NumberTheoryPage />} />
+              <Route path="/logical-reasoning" element={<LogicalReasoningPage />} />
+              <Route path="/probability" element={<ProbabilityPage />} />
 
               {/* Protected Student Routes */}
               <Route

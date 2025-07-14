@@ -21,7 +21,7 @@ export const mathTopics = [
     title: "Algebra",
     description:
       "Master equations, functions, and algebraic structures with comprehensive examples and step-by-step solutions.",
-    icon: "🔢",
+    icon: "�",
     formula: "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
     features: [
       "Linear & Quadratic Equations",
@@ -37,7 +37,7 @@ export const mathTopics = [
     title: "Geometry",
     description:
       "Explore shapes, angles, and spatial relationships from basic concepts to advanced theorems.",
-    icon: "📐",
+    icon: "�",
     formula: "a^2 + b^2 = c^2",
     features: [
       "Angles & Triangles",
@@ -53,7 +53,7 @@ export const mathTopics = [
     title: "Trigonometry",
     description:
       "Study the relationships between angles and sides in triangles, with applications in physics, engineering, and navigation.",
-    icon: "📏",
+    icon: "🧊",
     formula: "\\sin^2\\theta + \\cos^2\\theta = 1",
     features: [
       "Trigonometric Ratios",
@@ -69,7 +69,7 @@ export const mathTopics = [
     title: "Mensuration",
     description:
       "Learn to calculate areas, volumes, and surface areas of various geometric shapes and solids.",
-    icon: "🧊",
+    icon: "📉",
     formula: "V = \\frac{4}{3}\\pi r^3",
     features: [
       "Area Calculations",
@@ -85,7 +85,7 @@ export const mathTopics = [
     title: "Statistics",
     description:
       "Analyze data and understand statistical measures with practical examples and real-world applications.",
-    icon: "📉",
+    icon: "�",
     formula: "\\sigma = \\sqrt{\\frac{\\sum(x_i - \\mu)^2}{N}}",
     features: [
       "Central Tendency",
