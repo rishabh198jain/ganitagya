@@ -40,6 +40,8 @@ const AdSenseAd: React.FC<AdSenseAdProps> = ({
         className="adsbygoogle"
         style={style}
         data-ad-client="ca-pub-YOUR_PUBLISHER_ID" // Replace with your AdSense publisher ID
+        data-ad-region="ganitagya-math-content"
+        data-ad-test={process.env.NODE_ENV === 'development' ? 'on' : 'off'}
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-ad-layout={adLayout}
