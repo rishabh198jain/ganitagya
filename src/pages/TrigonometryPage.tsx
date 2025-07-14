@@ -16,7 +16,7 @@ const TrigonometryPage: React.FC = () => {
       subtitle="Master the relationships between angles and sides in triangles"
       description="Explore trigonometric ratios, identities, and their applications in physics, engineering, and navigation."
       icon="🧊"
-      data={trigonometryData}
+      sections={trigonometryData.sections}
     />
   );
 };

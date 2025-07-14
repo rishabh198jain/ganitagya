@@ -16,7 +16,7 @@ const LogicalReasoningPage: React.FC = () => {
       subtitle="Develop critical thinking skills through mathematical logic"
       description="Learn logical statements, proof techniques, set theory, and systematic problem-solving methods."
       icon="🔍"
-      data={logicalReasoningData}
+      sections={logicalReasoningData.sections}
     />
   );
 };

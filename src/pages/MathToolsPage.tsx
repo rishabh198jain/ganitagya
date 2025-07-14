@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import MathToolEmbed from '../components/math-tools/MathToolEmbed';
 import './MathToolsPage.css';
 
 const MathToolsPage: React.FC = () => {

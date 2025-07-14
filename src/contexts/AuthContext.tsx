@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { authAPI, apiUtils } from '@/utils/api';
-import type { User, AuthContextType, SignupData, AuthResponse } from '@/types';
+import type { User, AuthContextType } from '@/types';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setLoading(false)
   }, [])
 
-  const login = async (email, password, userType = 'student') => {
+  const login = async (email: string, password: string, userType: string = 'student') => {
     setLoading(true)
     setError(null)
 
@@ -78,14 +78,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         throw new Error(response.message)
       }
     } catch (err) {
-      setError(err.message)
-      return { success: false, error: err.message }
+      const errorMessage = err instanceof Error ? err.message : 'Login failed'
+      setError(errorMessage)
+      return { success: false, error: errorMessage }
     } finally {
       setLoading(false)
     }
   }
 
-  const signup = async (userData) => {
+  const signup = async (userData: any) => {
     setLoading(true)
     setError(null)
 
@@ -121,8 +122,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         throw new Error(response.message)
       }
     } catch (err) {
-      setError(err.message)
-      return { success: false, error: err.message }
+      const errorMessage = err instanceof Error ? err.message : 'Signup failed'
+      setError(errorMessage)
+      return { success: false, error: errorMessage }
     } finally {
       setLoading(false)
     }
@@ -143,7 +145,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     apiUtils.clearToken()
   }
 
-  const updateUser = async (updatedData) => {
+  const updateUser = async (updatedData: any) => {
     try {
       // Check if API is available
       const isApiAvailable = await apiUtils.isApiAvailable()
@@ -167,8 +169,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         return { success: true, user: updatedUser }
       }
     } catch (error) {
-      setError(error.message)
-      return { success: false, error: error.message }
+      const errorMessage = error instanceof Error ? error.message : 'Update failed'
+      setError(errorMessage)
+      return { success: false, error: errorMessage }
     }
   }
 
@@ -194,12 +197,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 }
 
 // Mock authentication functions - replace with actual API calls
-const mockLogin = async (email, password, userType) => {
+const mockLogin = async (email: string, password: string, _userType: string) => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1000))
   
   // Mock user data
-  const mockUsers = {
+  const mockUsers: Record<string, any> = {
     'admin@ganitagya.com': {
       id: 'admin-1',
       email: 'admin@ganitagya.com',
@@ -240,7 +243,7 @@ const mockLogin = async (email, password, userType) => {
   }
 }
 
-const mockSignup = async (userData) => {
+const mockSignup = async (userData: any) => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1000))
   
@@ -252,7 +255,7 @@ const mockSignup = async (userData) => {
     }
   }
 
-  const getAvatarByRole = (role) => {
+  const getAvatarByRole = (role: string) => {
     switch (role) {
       case 'admin': return '👨‍🏫'
       case 'teacher': return '👩‍🏫'

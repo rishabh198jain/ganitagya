@@ -27,7 +27,7 @@ import MathToolsPage from './pages/MathToolsPage'
 import AdminLoginHelper from './components/admin/AdminLoginHelper'
 import './App.css'
 
-function App(): JSX.Element {
+function App() {
   return (
     <AuthProvider>
       <Router>

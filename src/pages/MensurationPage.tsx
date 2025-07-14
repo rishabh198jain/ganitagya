@@ -16,7 +16,7 @@ const MensurationPage: React.FC = () => {
       subtitle="Calculate areas, volumes, and surface areas"
       description="Learn to measure and calculate areas, volumes, and surface areas of various geometric shapes and solids."
       icon="📉"
-      data={mensurationData}
+      sections={mensurationData.sections}
     />
   );
 };
