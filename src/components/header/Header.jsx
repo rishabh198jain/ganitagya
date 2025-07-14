@@ -55,6 +55,15 @@ const Header = () => {
             </li>
             <li>
               <Link
+                to="/math-tools"
+                className={isActive('/math-tools') ? 'active' : ''}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Math Tools
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/contact"
                 className={isActive('/contact') ? 'active' : ''}
                 onClick={() => setIsMenuOpen(false)}

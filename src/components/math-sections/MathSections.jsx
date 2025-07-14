@@ -125,7 +125,9 @@ const MathSections = () => {
                  style={{
                    transform: `translateX(-${currentSlide * (isMobile ? 100 : 33.333)}%)`,
                  }}>
-              {mathTopics.map((topic, index) => (
+              {mathTopics.map((topic, index) => {
+                console.log(`Rendering topic ${index}: ${topic.title}, will render divider: ${index < mathTopics.length - 1}`);
+                return (
                 <React.Fragment key={topic.id}>
                   <div id={topic.id} className="topic-card">
                     <div className="topic-header">
@@ -159,10 +161,19 @@ const MathSections = () => {
                       className="card-divider"
                       data-divider-index={index}
                       title={`Divider ${index + 1} between ${topic.title} and next card`}
-                    ></div>
+                      style={{
+                        backgroundColor: 'red',
+                        width: '5px',
+                        height: '200px',
+                        display: 'block'
+                      }}
+                    >
+                      DIVIDER {index + 1}
+                    </div>
                   )}
                 </React.Fragment>
-              ))}
+                );
+              })}
             </div>
           </div>
 

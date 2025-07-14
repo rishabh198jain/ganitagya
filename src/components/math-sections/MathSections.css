@@ -192,37 +192,33 @@
 
 /* Separator lines between cards - only on desktop */
 .card-divider {
-  width: 2px;
-  height: 70%;
-  background: rgba(99, 102, 241, 0.5);
+  width: 4px;
+  height: 80%;
+  background: #ff0000 !important; /* Bright red for testing */
   background: linear-gradient(
     to bottom,
-    transparent 0%,
-    rgba(99, 102, 241, 0.3) 20%,
-    rgba(99, 102, 241, 0.6) 40%,
-    rgba(99, 102, 241, 0.8) 50%,
-    rgba(99, 102, 241, 0.6) 60%,
-    rgba(99, 102, 241, 0.3) 80%,
-    transparent 100%
-  );
+    #ff0000 0%,
+    #ff4444 20%,
+    #ff6666 40%,
+    #ff8888 50%,
+    #ff6666 60%,
+    #ff4444 80%,
+    #ff0000 100%
+  ) !important;
   align-self: center;
   flex-shrink: 0;
-  margin: 0 12px;
-  border-radius: 1px;
-  opacity: 1;
+  margin: 0 15px;
+  border-radius: 2px;
+  opacity: 1 !important;
   transition: opacity 0.3s ease, transform 0.3s ease;
   position: relative;
-  z-index: 5;
+  z-index: 999;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
 .card-divider:hover {
-  opacity: 1;
-  transform: scaleY(1.1);
-}
-
-.card-divider:hover {
-  opacity: 1;
-  height: 90%;
+  opacity: 1 !important;
+  transform: scaleY(1.2);
 }
 
 @media (max-width: 767px) {
