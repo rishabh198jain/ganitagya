@@ -67,12 +67,12 @@
 
   .topics-grid.carousel-mode {
     overflow: visible;
-    width: calc(333.333%); /* Width for 10 cards: 10/3 = 333.333% */
+    width: calc(133.333%); /* Width for 4 cards: 4/3 = 133.333% */
   }
 
   .topics-grid.carousel-mode .topic-card {
-    flex: 0 0 calc(10% - 1.5rem);
-    min-width: calc(10% - 1.5rem);
+    flex: 0 0 calc(25% - 1.5rem);
+    min-width: calc(25% - 1.5rem);
   }
 
   .topics-grid.single-row .topic-card {
@@ -421,12 +421,12 @@
 
   .topics-grid.carousel-mode {
     flex-direction: row;
-    width: 1000%; /* 10 cards × 100% = 1000% */
+    width: 400%;
   }
 
   .topics-grid.carousel-mode .topic-card {
-    flex: 0 0 calc(10% - 1.5rem);
-    min-width: calc(10% - 1.5rem);
+    flex: 0 0 calc(25% - 1.5rem);
+    min-width: calc(25% - 1.5rem);
   }
 
   .carousel-viewport {
