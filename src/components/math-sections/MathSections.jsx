@@ -155,7 +155,11 @@ const MathSections = () => {
 
                   {/* Add divider after each card except the last one */}
                   {index < mathTopics.length - 1 && (
-                    <div className="card-divider"></div>
+                    <div
+                      className="card-divider"
+                      data-divider-index={index}
+                      title={`Divider ${index + 1} between ${topic.title} and next card`}
+                    ></div>
                   )}
                 </React.Fragment>
               ))}
