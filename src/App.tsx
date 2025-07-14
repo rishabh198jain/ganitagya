@@ -24,6 +24,7 @@ import NumberTheoryPage from './pages/NumberTheoryPage'
 import LogicalReasoningPage from './pages/LogicalReasoningPage'
 import ProbabilityPage from './pages/ProbabilityPage'
 import MathToolsPage from './pages/MathToolsPage'
+import AdminLoginHelper from './components/admin/AdminLoginHelper'
 import './App.css'
 
 function App(): JSX.Element {
@@ -54,6 +55,7 @@ function App(): JSX.Element {
               <Route path="/logical-reasoning" element={<LogicalReasoningPage />} />
               <Route path="/probability" element={<ProbabilityPage />} />
               <Route path="/math-tools" element={<MathToolsPage />} />
+              <Route path="/admin-login" element={<AdminLoginHelper />} />
 
               {/* Protected Student Routes */}
               <Route
