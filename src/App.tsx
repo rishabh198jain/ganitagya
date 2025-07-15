@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { AuthProvider } from './contexts/AuthContext'
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
@@ -29,12 +30,13 @@ import './App.css'
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="App">
-          <Header />
-          <main>
-            <Routes>
+    <HelmetProvider>
+      <AuthProvider>
+        <Router>
+          <div className="App">
+            <Header />
+            <main>
+              <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
               <Route path="/about-me" element={<AboutMe />} />
@@ -97,11 +99,12 @@ function App() {
                 }
               />
             </Routes>
-          </main>
-          <Footer />
-        </div>
-      </Router>
-    </AuthProvider>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </AuthProvider>
+    </HelmetProvider>
   )
 }
 
