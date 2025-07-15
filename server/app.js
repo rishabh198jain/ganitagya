@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 // Rate limiting
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 requests per windowMs
+  max: process.env.NODE_ENV === "test" ? 100 : 5, // Higher limit for tests
   message: "Too many authentication attempts, please try again later.",
   standardHeaders: true,
   legacyHeaders: false,
@@ -33,7 +33,7 @@ const authLimiter = rateLimit({
 
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  max: process.env.NODE_ENV === "test" ? 1000 : 100, // Higher limit for tests
   standardHeaders: true,
   legacyHeaders: false,
 });
@@ -47,7 +47,7 @@ let users = [
     id: "1",
     name: "Dr. Ganitagya",
     email: "admin@ganitagya.com",
-    password: "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi", // password123
+    password: "$2a$10$gkZaj6pVddZl8Dyd7e4PTOc98ShXJ3Wcxz4O2KU70CXPuDtTqIv7u", // password123
     role: "admin",
     subscription: "premium",
     avatar: "👨‍🏫",
@@ -58,7 +58,7 @@ let users = [
     id: "2",
     name: "Prof. Sarah Wilson",
     email: "teacher@ganitagya.com",
-    password: "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi", // password123
+    password: "$2a$10$gkZaj6pVddZl8Dyd7e4PTOc98ShXJ3Wcxz4O2KU70CXPuDtTqIv7u", // password123
     role: "teacher",
     subscription: "premium",
     avatar: "👩‍🏫",
@@ -69,7 +69,7 @@ let users = [
     id: "3",
     name: "John Doe",
     email: "student@example.com",
-    password: "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi", // password123
+    password: "$2a$10$gkZaj6pVddZl8Dyd7e4PTOc98ShXJ3Wcxz4O2KU70CXPuDtTqIv7u", // password123
     role: "student",
     subscription: "free",
     avatar: "👨‍🎓",
@@ -415,13 +415,15 @@ app.use("*", (req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Ganitagya API Server running on port ${PORT}`);
-  console.log(`📚 Environment: ${process.env.NODE_ENV || "development"}`);
-  console.log(
-    `🔗 Frontend URL: ${process.env.FRONTEND_URL || "http://localhost:5173"}`
-  );
-});
+// Start server only if not in test environment
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`🚀 Ganitagya API Server running on port ${PORT}`);
+    console.log(`📚 Environment: ${process.env.NODE_ENV || "development"}`);
+    console.log(
+      `🔗 Frontend URL: ${process.env.FRONTEND_URL || "http://localhost:5173"}`
+    );
+  });
+}
 
 module.exports = app;
