@@ -67,7 +67,7 @@ const AuthForm = () => {
     }
   };
 
-  const toggleMode = () => {
+  const _toggleMode = () => {
     setIsLogin(!isLogin);
     setValidationErrors({});
     // Reset form data when switching modes

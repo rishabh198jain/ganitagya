@@ -24,13 +24,16 @@ export interface MathItem {
 export interface MathSection {
   id: string;
   title: string;
-  description: string;
-  items: MathItem[];
+  description?: string;
+  formulas?: any[];
+  items?: MathItem[];
 }
 
 interface MathPageTemplateProps {
   title: string;
   subtitle: string;
+  description?: string;
+  icon?: string;
   sections: MathSection[];
   defaultSection?: string;
 }
@@ -38,6 +41,8 @@ interface MathPageTemplateProps {
 const MathPageTemplate: React.FC<MathPageTemplateProps> = ({
   title,
   subtitle,
+  description,
+  icon,
   sections,
   defaultSection
 }) => {
@@ -177,7 +182,7 @@ const MathPageTemplate: React.FC<MathPageTemplateProps> = ({
             <div className="header-cell expand-header"></div>
           </div>
 
-          {currentSection?.items.map((item) => (
+          {(currentSection?.items || currentSection?.formulas || []).map((item) => (
             <div key={item.id} className="table-row-container">
               {/* Main Row */}
               <div 

@@ -1,16 +1,16 @@
 // Utility helper functions for the application
 export const formatDate = (date: Date): string => {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   });
 };
 
 export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD'
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
   }).format(amount);
 };
 
@@ -20,7 +20,7 @@ export const validateEmail = (email: string): boolean => {
 };
 
 export const validatePassword = (password: string): boolean => {
-  return password && password.length >= 6;
+  return Boolean(password && password.length >= 6);
 };
 
 export const generateId = (): string => {
@@ -58,14 +58,14 @@ export const capitalizeFirst = (str: string): string => {
 
 export const truncateText = (text: string, maxLength: number): string => {
   if (text.length <= maxLength) return text;
-  return text.substr(0, maxLength) + '...';
+  return text.substr(0, maxLength) + "...";
 };
 
 export const getInitials = (name: string): string => {
   return name
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase())
-    .join('');
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase())
+    .join("");
 };
 
 export const isValidUrl = (url: string): boolean => {
@@ -79,14 +79,20 @@ export const isValidUrl = (url: string): boolean => {
 
 export const getRandomColor = (): string => {
   const colors = [
-    '#6366f1', '#8b5cf6', '#ec4899', '#ef4444',
-    '#f59e0b', '#10b981', '#06b6d4', '#3b82f6'
+    "#6366f1",
+    "#8b5cf6",
+    "#ec4899",
+    "#ef4444",
+    "#f59e0b",
+    "#10b981",
+    "#06b6d4",
+    "#3b82f6",
   ];
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
 export const sleep = (ms: number): Promise<void> => {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 export const clamp = (value: number, min: number, max: number): number => {
@@ -94,13 +100,13 @@ export const clamp = (value: number, min: number, max: number): number => {
 };
 
 export const getFileExtension = (filename: string): string => {
-  return filename.slice((filename.lastIndexOf('.') - 1 >>> 0) + 2);
+  return filename.slice(((filename.lastIndexOf(".") - 1) >>> 0) + 2);
 };
 
 export const formatFileSize = (bytes: number): string => {
-  if (bytes === 0) return '0 Bytes';
+  if (bytes === 0) return "0 Bytes";
   const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const sizes = ["Bytes", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
 };

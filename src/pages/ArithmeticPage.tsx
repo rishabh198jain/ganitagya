@@ -16,7 +16,7 @@ const ArithmeticPage: React.FC = () => {
       subtitle="Master the fundamental operations of mathematics"
       description="Learn addition, subtraction, multiplication, and division with whole numbers, fractions, and decimals."
       icon="🔢"
-      data={arithmeticData}
+      sections={arithmeticData.sections}
     />
   );
 };

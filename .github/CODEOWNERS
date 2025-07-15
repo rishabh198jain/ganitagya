@@ -1,0 +1,45 @@
+# CODEOWNERS file for Ganitagya repository
+# This file defines who owns and must review changes to specific parts of the codebase
+# Learn more: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global ownership - Rishabh Jain owns everything by default
+# This ensures all PRs require review from @rishabh198jain
+* @rishabh198jain
+
+# Critical files require explicit approval
+package.json @rishabh198jain
+package-lock.json @rishabh198jain
+tsconfig.json @rishabh198jain
+vite.config.js @rishabh198jain
+
+# Source code ownership
+/src/ @rishabh198jain
+/src/components/ @rishabh198jain
+/src/pages/ @rishabh198jain
+/src/data/ @rishabh198jain
+
+# Authentication and security components
+/src/components/auth*/ @rishabh198jain
+/src/components/admin/ @rishabh198jain
+/src/contexts/AuthContext.tsx @rishabh198jain
+
+# Monetization and subscription components
+/src/components/subscription/ @rishabh198jain
+/src/components/affiliate/ @rishabh198jain
+/src/components/products/ @rishabh198jain
+
+# CI/CD and GitHub workflows
+/.github/ @rishabh198jain
+/.github/workflows/ @rishabh198jain
+
+# Documentation
+/docs/ @rishabh198jain
+README.md @rishabh198jain
+
+# Configuration files
+.env* @rishabh198jain
+.gitignore @rishabh198jain
+
+# Deployment and build files
+/dist/ @rishabh198jain
+/build/ @rishabh198jain

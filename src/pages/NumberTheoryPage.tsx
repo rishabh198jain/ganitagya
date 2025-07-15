@@ -16,7 +16,7 @@ const NumberTheoryPage: React.FC = () => {
       subtitle="Explore the fascinating properties of integers"
       description="Discover prime numbers, divisibility rules, modular arithmetic, and mathematical patterns in number systems."
       icon="🧠"
-      data={numberTheoryData}
+      sections={numberTheoryData.sections}
     />
   );
 };

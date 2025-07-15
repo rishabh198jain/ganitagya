@@ -113,7 +113,7 @@ const AffiliateLinks: React.FC = () => {
   };
 
   const renderStars = (rating: number) => {
-    const stars = [];
+    const stars: React.ReactElement[] = [];
     const fullStars = Math.floor(rating);
     const hasHalfStar = rating % 1 !== 0;
 

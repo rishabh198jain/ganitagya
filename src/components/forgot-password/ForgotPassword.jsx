@@ -116,6 +116,7 @@ const ForgotPassword = () => {
       await new Promise(resolve => setTimeout(resolve, 1000))
       setMessage('New verification code sent!')
     } catch (err) {
+      console.error('Resend code error:', err);
       setError('Failed to resend code. Please try again.')
     } finally {
       setLoading(false);

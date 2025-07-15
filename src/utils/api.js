@@ -158,6 +158,7 @@ export const authAPI = {
       return response;
     } catch (error) {
       // Even if the API call fails, clear local token
+      console.error("Logout API error:", error);
       apiClient.setToken(null);
       return {
         success: true,
@@ -205,6 +206,7 @@ export const apiUtils = {
       const response = await healthAPI.check();
       return response.success;
     } catch (error) {
+      console.error("API health check error:", error);
       return false;
     }
   },

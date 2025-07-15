@@ -3,9 +3,9 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'student' | 'teacher' | 'admin';
+  role: "student" | "teacher" | "admin";
   avatar: string;
-  subscription: 'free' | 'premium' | 'lifetime';
+  subscription: "free" | "premium" | "lifetime";
   createdAt?: Date;
   lastLogin?: Date;
 }
@@ -14,14 +14,14 @@ export interface User {
 export interface LoginCredentials {
   email: string;
   password: string;
-  userType: 'student' | 'teacher' | 'admin';
+  userType: "student" | "teacher" | "admin";
 }
 
 export interface SignupData {
   name: string;
   email: string;
   password: string;
-  role: 'student' | 'teacher' | 'admin';
+  role: "student" | "teacher" | "admin";
 }
 
 export interface AuthResponse {
@@ -36,7 +36,11 @@ export interface AuthContextType {
   user: User | null;
   loading: boolean;
   error: string | null;
-  login: (email: string, password: string, userType: string) => Promise<AuthResponse>;
+  login: (
+    email: string,
+    password: string,
+    userType: string
+  ) => Promise<AuthResponse>;
   signup: (userData: SignupData) => Promise<AuthResponse>;
   logout: () => void;
   updateUser: (userData: Partial<User>) => Promise<AuthResponse>;
@@ -54,7 +58,7 @@ export interface Course {
   instructor: string;
   progress: number;
   duration: string;
-  level: 'beginner' | 'intermediate' | 'advanced';
+  level: "beginner" | "intermediate" | "advanced";
   locked: boolean;
   thumbnail?: string;
   lessons?: number;
@@ -77,7 +81,7 @@ export interface Activity {
   action: string;
   subject: string;
   time: string;
-  type?: 'course' | 'achievement' | 'lesson';
+  type?: "course" | "achievement" | "lesson";
 }
 
 // Statistics Types
@@ -87,7 +91,6 @@ export interface StudentStats {
   currentStreak: number;
   studyStreak: number;
   averageScore: number;
-  totalStudyTime: string;
 }
 
 export interface EducatorStats {
@@ -113,7 +116,7 @@ export interface PricingPlan {
   id: string;
   name: string;
   price: number;
-  period: 'month' | 'year' | 'lifetime';
+  period: "month" | "year" | "lifetime";
   features: string[];
   popular?: boolean;
   description: string;
@@ -147,7 +150,7 @@ export interface MathTopic {
   title: string;
   description: string;
   icon: string;
-  difficulty: 'easy' | 'medium' | 'hard';
+  difficulty: "easy" | "medium" | "hard";
 }
 
 export interface Mathematician {
@@ -183,7 +186,7 @@ export interface ProtectedRouteProps {
 }
 
 export interface LoadingSpinnerProps {
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   color?: string;
 }
 
@@ -210,7 +213,7 @@ export interface FormChangeEvent {
 }
 
 // Utility Types
-export type UserRole = 'student' | 'teacher' | 'admin';
-export type SubscriptionType = 'free' | 'premium' | 'lifetime';
-export type CourseLevel = 'beginner' | 'intermediate' | 'advanced';
-export type PricingPeriod = 'month' | 'year' | 'lifetime';
+export type UserRole = "student" | "teacher" | "admin";
+export type SubscriptionType = "free" | "premium" | "lifetime";
+export type CourseLevel = "beginner" | "intermediate" | "advanced";
+export type PricingPeriod = "month" | "year" | "lifetime";

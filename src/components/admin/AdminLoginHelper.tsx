@@ -19,7 +19,7 @@ const AdminLoginHelper: React.FC = () => {
     setMessage('');
 
     try {
-      const result = await login(adminCredentials.email, adminCredentials.password);
+      const result = await login(adminCredentials.email, adminCredentials.password, 'admin');
       
       if (result.success) {
         setMessage('✅ Admin login successful! Redirecting to dashboard...');

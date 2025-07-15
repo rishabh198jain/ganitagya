@@ -1,0 +1,45 @@
+name: Simple Reviewer Assignment
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+
+jobs:
+  assign:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Assign Reviewer
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_NUMBER: ${{ github.event.number }}
+      run: |
+        echo "Assigning reviewer to PR #$PR_NUMBER"
+        
+        # Method 1: Using GitHub CLI
+        gh pr edit $PR_NUMBER --add-reviewer rishabh198jain --repo ${{ github.repository }}
+        
+        echo "✅ Reviewer assigned successfully"
+        
+    - name: Verify Assignment
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_NUMBER: ${{ github.event.number }}
+      run: |
+        echo "Verifying reviewer assignment..."
+        gh pr view $PR_NUMBER --repo ${{ github.repository }} --json reviewRequests
+        
+    - name: Add Comment
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PR_NUMBER: ${{ github.event.number }}
+      run: |
+        gh pr comment $PR_NUMBER --repo ${{ github.repository }} --body "🔍 **Reviewer Assigned**: @rishabh198jain
+
+        This PR requires approval before it can be merged.
+        
+        **Merge Requirements:**
+        - ✅ Approval from @rishabh198jain
+        - ✅ All status checks passing
+        - ✅ Branch up to date
+        
+        *Auto-assigned by GitHub Actions*"
