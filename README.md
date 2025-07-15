@@ -1,4 +1,4 @@
-# गणितज्ञ Ganitagya - The World of Mathematics
+# गणितज्ञ Ganitagya - The World of Mathematics 🧮
 
 A beautiful, responsive website dedicated to mathematics, built with React, Node.js, and modern web technologies.
 
