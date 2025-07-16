@@ -4,15 +4,15 @@ import { AuthProvider } from './contexts/AuthContext'
 import Header from './components/header/Header'
 import Footer from './components/footer/Footer'
 import ProtectedRoute from './components/protected-route/ProtectedRoute'
-import Home from './pages/Home'
-import AboutMe from './pages/AboutMe'
-import Profile from './pages/Profile'
-import ContactUs from './pages/ContactUs'
+import Home from './pages/Home.jsx'
+import AboutMe from './pages/AboutMe.jsx'
+import Profile from './pages/Profile.jsx'
+import ContactUs from './pages/ContactUs.jsx'
 import AuthForm from './components/auth-unified/AuthForm'
 import ForgotPassword from './components/forgot-password/ForgotPassword'
-import StudentDashboard from './pages/dashboard/StudentDashboard'
-import EducatorDashboard from './pages/dashboard/EducatorDashboard'
-import AdminDashboard from './pages/dashboard/AdminDashboard'
+import StudentDashboard from './pages/dashboard/StudentDashboard.jsx'
+import EducatorDashboard from './pages/dashboard/EducatorDashboard.jsx'
+import AdminDashboard from './pages/dashboard/AdminDashboard.jsx'
 import PricingPlans from './components/pricing-plans/PricingPlans'
 import ArithmeticPage from './pages/ArithmeticPage'
 import AlgebraPage from './pages/AlgebraPage'
@@ -26,16 +26,17 @@ import LogicalReasoningPage from './pages/LogicalReasoningPage'
 import ProbabilityPage from './pages/ProbabilityPage'
 import MathToolsPage from './pages/MathToolsPage'
 import AdminLoginHelper from './components/admin/AdminLoginHelper'
+import ChatbotTrigger from './components/chatbot/ChatbotTrigger'
+import { useAuth } from './contexts/AuthContext'
 import './App.css'
 
-function App() {
+function AppContent() {
+  const { user } = useAuth();
+
   return (
-    <HelmetProvider>
-      <AuthProvider>
-        <Router>
-          <div className="App">
-            <Header />
-            <main>
+    <div className="App">
+      <Header />
+      <main>
               <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
@@ -99,9 +100,27 @@ function App() {
                 }
               />
             </Routes>
-            </main>
-            <Footer />
-          </div>
+          </main>
+          <Footer />
+
+          {/* Student Inquiry Chatbot */}
+          <ChatbotTrigger
+            studentInfo={{
+              name: user?.name,
+              email: user?.email,
+              grade: user?.role === 'student' ? 'Student' : user?.role
+            }}
+          />
+        </div>
+  )
+}
+
+function App() {
+  return (
+    <HelmetProvider>
+      <AuthProvider>
+        <Router>
+          <AppContent />
         </Router>
       </AuthProvider>
     </HelmetProvider>

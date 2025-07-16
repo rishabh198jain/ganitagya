@@ -1,4 +1,4 @@
-# गणितज्ञ Ganitagya - The World of Mathematics
+# गणितज्ञ Ganitagya - The World of Mathematics 🧮
 
 A beautiful, responsive website dedicated to mathematics, built with React, Node.js, and modern web technologies.
 
@@ -75,7 +75,7 @@ The backend API will be available at `http://localhost:3001/api/`
 ### 🔑 Demo Credentials
 
 **Student Account:**
-- Email: `student@example.com`
+- Email: `student@ganitagya.com`
 - Password: `password123`
 - Access: Student dashboard, course content
 
