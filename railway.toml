@@ -1,0 +1,105 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm install && npm run build:server"
+
+[deploy]
+healthcheckPath = "/api/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+startCommand = "npm run server:start"
+
+[environments.production]
+[environments.production.variables]
+NODE_ENV = "production"
+PORT = "3001"
+
+[environments.staging]
+[environments.staging.variables]
+NODE_ENV = "staging"
+PORT = "3001"
+
+# Service definitions
+[[services]]
+name = "api"
+source = "."
+
+[services.api]
+buildCommand = "npm install && npm run build:server"
+startCommand = "npm run server:start"
+
+[services.api.variables]
+NODE_ENV = "production"
+PORT = "3001"
+JWT_SECRET = "${{JWT_SECRET}}"
+OPENAI_API_KEY = "${{OPENAI_API_KEY}}"
+DATABASE_URL = "${{DATABASE_URL}}"
+REDIS_URL = "${{REDIS_URL}}"
+
+[services.api.healthcheck]
+path = "/api/health"
+timeout = 300
+
+# Database service
+[[services]]
+name = "postgres"
+source = "postgres:15"
+
+[services.postgres.variables]
+POSTGRES_DB = "ganitagya"
+POSTGRES_USER = "${{POSTGRES_USER}}"
+POSTGRES_PASSWORD = "${{POSTGRES_PASSWORD}}"
+
+# Redis service
+[[services]]
+name = "redis"
+source = "redis:7"
+
+[services.redis.variables]
+REDIS_PASSWORD = "${{REDIS_PASSWORD}}"
+
+# Monitoring
+[monitoring]
+enabled = true
+
+[monitoring.metrics]
+enabled = true
+path = "/api/metrics"
+
+[monitoring.logs]
+enabled = true
+level = "info"
+
+# Networking
+[networking]
+allowedOrigins = [
+  "https://ganitagya.vercel.app",
+  "https://ganitagya.com",
+  "https://www.ganitagya.com"
+]
+
+# Scaling
+[scaling]
+minInstances = 1
+maxInstances = 3
+targetCPU = 70
+targetMemory = 80
+
+# Cron jobs
+[[cron]]
+name = "cleanup-sessions"
+schedule = "0 2 * * *"  # Daily at 2 AM
+command = "npm run cleanup:sessions"
+
+[[cron]]
+name = "backup-database"
+schedule = "0 3 * * 0"  # Weekly on Sunday at 3 AM
+command = "npm run backup:database"
+
+# Environment-specific overrides
+[environments.production.scaling]
+minInstances = 2
+maxInstances = 5
+
+[environments.staging.scaling]
+minInstances = 1
+maxInstances = 2

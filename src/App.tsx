@@ -26,16 +26,17 @@ import LogicalReasoningPage from './pages/LogicalReasoningPage'
 import ProbabilityPage from './pages/ProbabilityPage'
 import MathToolsPage from './pages/MathToolsPage'
 import AdminLoginHelper from './components/admin/AdminLoginHelper'
+import ChatbotTrigger from './components/chatbot/ChatbotTrigger'
+import { useAuth } from './contexts/AuthContext'
 import './App.css'
 
-function App() {
+function AppContent() {
+  const { user } = useAuth();
+
   return (
-    <HelmetProvider>
-      <AuthProvider>
-        <Router>
-          <div className="App">
-            <Header />
-            <main>
+    <div className="App">
+      <Header />
+      <main>
               <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Home />} />
@@ -99,9 +100,27 @@ function App() {
                 }
               />
             </Routes>
-            </main>
-            <Footer />
-          </div>
+          </main>
+          <Footer />
+
+          {/* Student Inquiry Chatbot */}
+          <ChatbotTrigger
+            studentInfo={{
+              name: user?.name,
+              email: user?.email,
+              grade: user?.role === 'student' ? 'Student' : user?.role
+            }}
+          />
+      </div>
+  )
+}
+
+function App() {
+  return (
+    <HelmetProvider>
+      <AuthProvider>
+        <Router>
+          <AppContent />
         </Router>
       </AuthProvider>
     </HelmetProvider>
