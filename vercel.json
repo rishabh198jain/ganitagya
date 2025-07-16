@@ -6,6 +6,10 @@
   "framework": "vite",
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": "https://ganitagya-api.railway.app/api/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

@@ -1,8 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MathToolsPage.css';
 
 const MathToolsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('desmos');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [favorites, setFavorites] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showTooltip, setShowTooltip] = useState<string | null>(null);
+
+  // Load favorites from localStorage
+  useEffect(() => {
+    const savedFavorites = localStorage.getItem('mathToolsFavorites');
+    if (savedFavorites) {
+      setFavorites(JSON.parse(savedFavorites));
+    }
+  }, []);
+
+  // Save favorites to localStorage
+  const toggleFavorite = (toolId: string) => {
+    const newFavorites = favorites.includes(toolId)
+      ? favorites.filter(id => id !== toolId)
+      : [...favorites, toolId];
+
+    setFavorites(newFavorites);
+    localStorage.setItem('mathToolsFavorites', JSON.stringify(newFavorites));
+  };
+
+  // Handle tool loading
+  const handleToolSelect = (toolId: string) => {
+    setIsLoading(true);
+    setActiveTab(toolId);
+
+    // Simulate loading time for better UX
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 800);
+  };
 
   const mathTools = [
     {
@@ -79,12 +112,21 @@ const MathToolsPage: React.FC = () => {
     }
   ];
 
-  const categories = ['All', ...Array.from(new Set(mathTools.map(tool => tool.category)))];
+  const categories = ['All', 'Favorites', ...Array.from(new Set(mathTools.map(tool => tool.category)))];
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const filteredTools = selectedCategory === 'All' 
-    ? mathTools 
-    : mathTools.filter(tool => tool.category === selectedCategory);
+  // Enhanced filtering with search and favorites
+  const filteredTools = mathTools.filter(tool => {
+    const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         tool.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         tool.category.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory = selectedCategory === 'All' ||
+                           (selectedCategory === 'Favorites' && favorites.includes(tool.id)) ||
+                           tool.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 
   const activeTool = mathTools.find(tool => tool.id === activeTab);
 
@@ -94,6 +136,29 @@ const MathToolsPage: React.FC = () => {
         <header className="tools-header">
           <h1>🧮 Mathematics Tools</h1>
           <p>Free online mathematical tools to enhance your learning experience</p>
+
+          {/* Search Bar */}
+          <div className="search-container">
+            <div className="search-box">
+              <span className="search-icon">🔍</span>
+              <input
+                type="text"
+                placeholder="Search tools, categories, or descriptions..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+              />
+              {searchTerm && (
+                <button
+                  className="clear-search"
+                  onClick={() => setSearchTerm('')}
+                  title="Clear search"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          </div>
         </header>
 
         {/* Category Filter */}
@@ -111,44 +176,105 @@ const MathToolsPage: React.FC = () => {
 
         {/* Tools Grid */}
         <div className="tools-grid">
-          {filteredTools.map(tool => (
-            <div
-              key={tool.id}
-              className={`tool-card ${activeTab === tool.id ? 'active' : ''}`}
-              onClick={() => setActiveTab(tool.id)}
-            >
-              <div className="tool-icon">{tool.icon}</div>
-              <h3 className="tool-name">{tool.name}</h3>
-              <p className="tool-description">{tool.description}</p>
-              <span className="tool-category">{tool.category}</span>
+          {filteredTools.length === 0 ? (
+            <div className="no-results">
+              <span className="no-results-icon">🔍</span>
+              <h3>No tools found</h3>
+              <p>Try adjusting your search or category filter</p>
             </div>
-          ))}
+          ) : (
+            filteredTools.map(tool => (
+              <div
+                key={tool.id}
+                className={`tool-card ${activeTab === tool.id ? 'active' : ''} ${favorites.includes(tool.id) ? 'favorited' : ''}`}
+                onClick={() => handleToolSelect(tool.id)}
+                onMouseEnter={() => setShowTooltip(tool.id)}
+                onMouseLeave={() => setShowTooltip(null)}
+              >
+                <div className="tool-card-header">
+                  <div className="tool-icon">{tool.icon}</div>
+                  <button
+                    className={`favorite-btn ${favorites.includes(tool.id) ? 'favorited' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(tool.id);
+                    }}
+                    title={favorites.includes(tool.id) ? 'Remove from favorites' : 'Add to favorites'}
+                  >
+                    {favorites.includes(tool.id) ? '❤️' : '🤍'}
+                  </button>
+                </div>
+                <h3 className="tool-name">{tool.name}</h3>
+                <p className="tool-description">{tool.description}</p>
+                <div className="tool-footer">
+                  <span className="tool-category">{tool.category}</span>
+                  <div className="tool-features">
+                    {tool.features.slice(0, 2).map((feature, index) => (
+                      <span key={index} className="feature-tag">{feature}</span>
+                    ))}
+                    {tool.features.length > 2 && (
+                      <span className="feature-more">+{tool.features.length - 2}</span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Tooltip */}
+                {showTooltip === tool.id && (
+                  <div className="tool-tooltip">
+                    <strong>Features:</strong>
+                    <ul>
+                      {tool.features.map((feature, index) => (
+                        <li key={index}>{feature}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
         </div>
 
         {/* Active Tool Display */}
         {activeTool && (
           <div className="tool-display">
             <div className="tool-header">
-              <h2>{activeTool.icon} {activeTool.name}</h2>
+              <div className="tool-header-left">
+                <h2>{activeTool.icon} {activeTool.name}</h2>
+                <p className="tool-header-description">{activeTool.description}</p>
+              </div>
               <div className="tool-actions">
+                <button
+                  className={`favorite-btn-large ${favorites.includes(activeTool.id) ? 'favorited' : ''}`}
+                  onClick={() => toggleFavorite(activeTool.id)}
+                  title={favorites.includes(activeTool.id) ? 'Remove from favorites' : 'Add to favorites'}
+                >
+                  {favorites.includes(activeTool.id) ? '❤️ Favorited' : '🤍 Add to Favorites'}
+                </button>
                 <button
                   className="open-new-tab-btn"
                   onClick={() => window.open(activeTool.url, '_blank')}
                 >
-                  Open in New Tab 🔗
+                  🔗 Open in New Tab
                 </button>
               </div>
             </div>
-            
+
             <div className="tool-iframe-container">
+              {isLoading && (
+                <div className="loading-overlay">
+                  <div className="loading-spinner"></div>
+                  <p>Loading {activeTool.name}...</p>
+                </div>
+              )}
               <iframe
                 src={activeTool.url}
                 width="100%"
                 height="600"
-                frameBorder="0"
+                style={{ border: 'none' }}
                 title={activeTool.name}
                 allowFullScreen
                 loading="lazy"
+                onLoad={() => setIsLoading(false)}
               />
             </div>
           </div>

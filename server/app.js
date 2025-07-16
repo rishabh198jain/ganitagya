@@ -25,15 +25,24 @@ app.use(express.urlencoded({ extended: true }));
 // Rate limiting
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: process.env.NODE_ENV === "test" ? 100 : 5, // Higher limit for tests
-  message: "Too many authentication attempts, please try again later.",
+  max: process.env.NODE_ENV === "test" ? 100 : 50, // Increased limit for development
+  message: {
+    success: false,
+    message: "Too many authentication attempts, please try again later.",
+    retryAfter: "15 minutes",
+  },
   standardHeaders: true,
   legacyHeaders: false,
 });
 
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: process.env.NODE_ENV === "test" ? 1000 : 100, // Higher limit for tests
+  max: process.env.NODE_ENV === "test" ? 1000 : 500, // Higher limit for development
+  message: {
+    success: false,
+    message: "Too many requests, please try again later.",
+    retryAfter: "15 minutes",
+  },
   standardHeaders: true,
   legacyHeaders: false,
 });
@@ -68,7 +77,7 @@ let users = [
   {
     id: "3",
     name: "John Doe",
-    email: "student@example.com",
+    email: "student@ganitagya.com",
     password: "$2a$10$gkZaj6pVddZl8Dyd7e4PTOc98ShXJ3Wcxz4O2KU70CXPuDtTqIv7u", // password123
     role: "student",
     subscription: "free",
