@@ -26,7 +26,7 @@ import LogicalReasoningPage from './pages/LogicalReasoningPage'
 import ProbabilityPage from './pages/ProbabilityPage'
 import MathToolsPage from './pages/MathToolsPage'
 import AdminLoginHelper from './components/admin/AdminLoginHelper'
-import ChatbotTrigger from './components/chatbot/ChatbotTrigger'
+import ChatbotTrigger from './components/chatbot/ChatbotTrigger.tsx'
 import { useAuth } from './contexts/AuthContext'
 import './App.css'
 

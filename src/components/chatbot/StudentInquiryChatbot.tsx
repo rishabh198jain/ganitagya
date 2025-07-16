@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { aiService } from '@/services/AIService';
+import { aiService } from '../../services/AIService';
 import './StudentInquiryChatbot.css';
 
 interface ChatMessage {
